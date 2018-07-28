@@ -1,0 +1,32 @@
+{
+  "name": "exercisetracker",
+  "version": "1.0.0",
+  "description": "An FCC backend challenge",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "mocha"
+  },
+  "engines": {
+    "node": "8.11.1",
+    "npm": "6.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RicardoL-AFati/fcc-exerciseTracker.git"
+  },
+  "author": "Ricardo Ledesma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RicardoL-AFati/fcc-exerciseTracker/issues"
+  },
+  "homepage": "https://github.com/RicardoL-AFati/fcc-exerciseTracker#readme",
+  "dependencies": {
+    "moment": "^2.22.2",
+    "randomstring": "^1.1.5"
+  }
+}

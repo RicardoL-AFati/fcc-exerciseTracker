@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>Exercise Tracker | Ricardo Ledesma</title>
+</head>
+
+<body>
+    <main>
+        <h1 id="title" class="title">Exercise Tracker</h1>
+        <div class="container">
+            <div class="newUser">
+                <p>Create a new user</p>
+                <p class="formTitles">POST /api/exercise/new-user</p>
+                <form action="/api/exercise/new-user" method="POST">
+                    <label for='username'>Enter the Username</label>
+                    <br>
+                    <input id='username' name='username' type="text" placeholder="username">
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="addExercise">
+                <p>Add an exercise</p>
+                <p class="formTitles">POST /api/exercise/add</p>
+                <form action="/api/exercise/add" id="newExercise" class="newExercise" method="POST">
+                    <label for="userId">Enter your userId</label>
+                    <br>
+                    <input class='formInput' id="userId" name="userId" type="text" placeholder="userId">
+                    <br>
+                    <label for="desc">Describe the Exercise</label>
+                    <br>
+                    <input class='formInput' id="description" name="description" type="text" placeholder="description">
+                    <br>
+                    <label for="exerDate">Enter the Date</label>
+                    <br>
+                    <input class='formInput' id="exerDate" name="exerDate" type="date">
+                    <br>
+                    <label for="duration">Enter Exercise Duration in Minutes</label>
+                    <br>
+                    <input class='formInput' id="duration" name="duration" type="number" placeholder="duration">
+                    <br>
+                    <input class='formInput' type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="getExerciseLogs">
+                <p>Get Exercise Logs</p>
+                <p class="formTitles">GET /api/exercise/log</p>
+                <form action="/api/exercise/log" id="exerciseLogs" class="exerciseLogs" method="GET">
+                    <label for="userIdLogs">Enter your userId</label>
+                    <br>
+                    <input class='formInput' type="text" id="userIdLogs" name="userId" placeholder="userId">
+                    <br>
+                    <label for="from">From Date</label>
+                    <br>
+                    <input class='formInput' type="date" id="fromDate" name="from">
+                    <br>
+                    <label for="toDate">To Date</label>
+                    <br>
+                    <input class='formInput' type="date" id="toDate" name="to">
+                    <br>
+                    <label for="limit">Limit Number of Returned Logs</label>
+                    <br>
+                    <input class='formInput' type="number" id="limit" name='limit' placeholder="0">
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+        <div class="instructions">
+            <p>Use either form or GET route from browser</p>
+            <p>userId is required, all other fields are optional</p>
+            <p>
+                <strong>GET users's exercise log:</strong>
+                <code>GET /api/exercise/log?userId=number&from=date&to=date&limit=number</code>
+            </p>
+            <p>
+                <strong>from, to</strong> = dates (yyyy-mm-dd); userId = number, limit = number</p>
+        </div>
+    </main>
+    <footer>
+        <p>Coded by
+            <a href="https://github.com/RicardoL-AFati/fcc-exerciseTracker">Ricardo Ledesma</a>
+        </p>
+    </footer>
+</body>
+
+
+
+</html>
