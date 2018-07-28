@@ -16,6 +16,7 @@ module.exports = (app) => {
       }
     });
   });
+
   app.post('/api/exercise/add', (req, res) => {
     User.findOne({ userId: req.body.userId }).then((foundUser) => {
       if (foundUser) {
@@ -36,24 +37,36 @@ module.exports = (app) => {
   app.get('/api/exercise/log', (req, res) => {
     User.findOne({ userId: req.query.userId }).then((foundUser) => {
       if (foundUser) {
-        const { from } = req.query;
-        const { to } = req.query;
-        if (!from && !to) {
-          res.send({ foundExercises: foundUser.exercises });
+        const { to, from, limit } = req.query;
+        if (from === '' && to === '') {
+          res.send({
+            foundExercises: limit ? foundUser.exercises.slice(0, limit) : foundUser.exercises,
+          });
         } else {
-          const filteredExercises = foundUser.exercises.filter((exercise) => {
-            if (from && to) {
+          const filteredExercises = foundUser.exercises.reduce((filtered, exercise) => {
+            if (from !== '' && to !== '') {
               const isAfter = moment.utc(exercise.date).isAfter(moment.utc(from));
               const isBefore = moment.utc(exercise.date).isBefore(moment.utc(to));
-              return isAfter && isBefore;
-            } else if (from && !to) {
-              return moment.utc(exercise.date).isAfter(moment.utc(from));
-            } else if (!from && to) {
-              return moment.utc(exercise.date).isBefore(moment.utc(to));
+              if (isAfter && isBefore) {
+                filtered.push(exercise);
+                return filtered;
+              }
+            } else if (from !== '' && to === '') {
+              if (moment.utc(exercise.date).isAfter(moment.utc(from))) {
+                filtered.push(exercise);
+                return filtered;
+              }
+            } else if (from === '' && to !== '') {
+              if (moment.utc(exercise.date).isBefore(moment.utc(to))) {
+                filtered.push(exercise);
+                return filtered;
+              }
             }
-            return exercise;
+            return filtered;
+          }, []);
+          res.send({
+            foundExercises: limit ? filteredExercises.slice(0, limit) : filteredExercises,
           });
-          res.send({ foundExercises: filteredExercises });
         }
       } else {
         res.send({ error: 'User with that id was not found' });
